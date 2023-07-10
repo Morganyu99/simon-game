@@ -1,28 +1,20 @@
-$('.btn').hover( function(event){
-    if(event.target.classList[1]=='red'){
-        $('.btn.red').addClass('hover');}
-    else if(event.target.classList[1]=='yellow'){
-        $('.btn.yellow').addClass('hover');}
-    else if(event.target.classList[1]=='blue'){
-        $('.btn.blue').addClass('hover');}
-    else if(event.target.classList[1]=='green'){
-        $('.btn.green').addClass('hover');}
-    else {console.log(event.target.classList[1]);}
-}, function(){
-    $('.btn').removeClass('hover');
-});
+
 var colorarray=['green','red','yellow','blue'];
 var sysGenArray=[];
 var userSelectedArray=[];
 var i=0;
 var sysPlay=0;
 var target;
-$('#level-title').click(function(){ 
+var highScore=0;
+$('#Start').click(function(){ 
     if(sysPlay===0){sysPlay=1;
     sysGenArray=[];
     userSelectedArray=[]
     setTimeout(sysgen(),5000);}
-    $('h1').text('Playing')
+    $('#Start').fadeOut();
+    $('h1').text('Playing');
+    highScore = 0;
+    $('#high-score').text(highScore);
 })
 
 $('.btn').click(function(event){
@@ -35,7 +27,7 @@ $('.btn').click(function(event){
 function sysgen(){
     var randomcolour = colorarray[Math.floor(Math.random() * 4)];
     sysGenArray.push(randomcolour);
-    trigger();
+    trigger(),3000;
     
      
     
@@ -47,11 +39,10 @@ function trigger(){
         var audio = new Audio('./sounds/'+color+'.mp3');
         audio.play();
         $('#'+color).fadeOut('fast').delay(10).fadeIn('fast'); 
-    }, (index+1)*600); target=index;});
+    }, (index+2)*600); target=index;});
     setTimeout(()=>{sysPlay=0;},(sysGenArray.length)*600);
 }
 function User(k,event){
-        console.log(event);
         userSelectedArray.push(event.target.classList[1])
         if(sysGenArray[k]==event.target.classList[1]){
             if(sysGenArray.length>userSelectedArray.length){
@@ -70,6 +61,8 @@ function User(k,event){
                 userSelectedArray=[];
                 sysPlay=1;
                 setTimeout(sysgen(),2000);
+                highScore  =highScore+ target;
+                $('#high-score').text(highScore);
             }
         }
         else if(sysGenArray[k]!==event.target.classList[1]){
@@ -81,7 +74,9 @@ function User(k,event){
                 sysGenArray=[];
                 i=0;
                 sysPlay=0;
-                $('h1').text('Wrrong! Press to Retry')
+                $('h1').text('Wrong! Press to Retry');
+                $('#Start').fadeIn();
+
 
 
         }

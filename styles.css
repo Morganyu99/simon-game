@@ -70,6 +70,23 @@ body {
   background-color: grey;
 }
 
-.hover{
-  box-shadow: 0 0 10px 10px white;
+#Start{
+  background-color:#8fbdef;
+  height: 6vh;
+  width: 6vw;
+  border-radius: 20%;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 60%;
+}
+
+#high-score{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 100%;
+  color: #FEF2BF;
+}
+
+h2{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 100%;
+  color: #FEF2BF;
 }
