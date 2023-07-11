@@ -4,8 +4,10 @@ var sysGenArray=[];
 var userSelectedArray=[];
 var i=0;
 var sysPlay=0;
-var target;
+var target=0;
 var highScore=0;
+var level=1;
+$('#level').fadeToggle();
 $('#Start').click(function(){ 
     if(sysPlay===0){sysPlay=1;
     sysGenArray=[];
@@ -14,7 +16,9 @@ $('#Start').click(function(){
     $('#Start').fadeOut();
     $('h1').text('Playing');
     highScore = 0;
+    level=1;
     $('#high-score').text(highScore);
+    $('#Level').text(level);
 })
 
 $('.btn').click(function(event){
@@ -27,7 +31,7 @@ $('.btn').click(function(event){
 function sysgen(){
     var randomcolour = colorarray[Math.floor(Math.random() * 4)];
     sysGenArray.push(randomcolour);
-    trigger(),3000;
+    trigger();
     
      
     
@@ -40,7 +44,7 @@ function trigger(){
         audio.play();
         $('#'+color).fadeOut('fast').delay(10).fadeIn('fast'); 
     }, (index+2)*600); target=index;});
-    setTimeout(()=>{sysPlay=0;},(sysGenArray.length)*600);
+    setTimeout(()=>{sysPlay=0;},(sysGenArray.length+2)*600);
 }
 function User(k,event){
         userSelectedArray.push(event.target.classList[1])
@@ -62,7 +66,9 @@ function User(k,event){
                 sysPlay=1;
                 setTimeout(sysgen(),2000);
                 highScore  =highScore+ target;
+                level=target+1;
                 $('#high-score').text(highScore);
+                $('#Level').text(level);
             }
         }
         else if(sysGenArray[k]!==event.target.classList[1]){
